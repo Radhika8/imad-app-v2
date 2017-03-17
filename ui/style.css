@@ -22,14 +22,14 @@ body {
 
  .container{
          
-  max-width: 800px;
-  margin: 0 auto;
-  color: #928c8c;
-  font-family: ariel;
-  font-style: italic;
-   
-   padding-left: 25px;
-  padding-right: 25px;
-                             
+              max-width: 800px;
+              margin: 0 auto;
+              color: #928c8c;
+              font-family: ariel;
+              font-style: italic;
+               
+               padding-left: 25px;
+              padding-right: 25px;
+                                         
      
 }
