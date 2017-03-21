@@ -10,10 +10,10 @@ var articleOne={
 heading:'Article One',
 date:'1st March',
 content:
-     `       <p>This is content for my first article. 
-            </p>
+       `<p>This is content for my first article. 
+            </p>`
                 
-    `};
+    };
   
  
  function createTemplate(data){
