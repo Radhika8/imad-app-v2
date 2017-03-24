@@ -108,9 +108,10 @@ app.get('/favicon.ico', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi1.png'));
 });
   var names = [];
-app.get('/submit-name/:name', function(req,res) {
+app.get('/submit-name', function(req,res) {//URL: /submit-name?name=xxxx
+
     //Get the name from request object
-    var name = req.params.name;
+    var name = req.query.name;
     
     names.push(name);
     //JSON: Javascript Object Notation
