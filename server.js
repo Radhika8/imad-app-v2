@@ -11,6 +11,7 @@ var config = {
     password: 'db-radhika8-65082'
     
 };
+
 var app = express();
 app.use(morgan('combined'));
 
@@ -86,7 +87,27 @@ var articles={
     return htmlTemplate;
  }
  
- 
+ app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+});
+
+
+ var pool = new Pool(config);
+app.get('/test-db',function(req,res){
+    //make a select request
+    //return a response with the results
+     pool.query('SELECT * FROM test', function (err,result){
+         
+         if(err){
+             res.status(500).send(err.toString());
+             }else {
+                 res.send(JSON.stringify(result));
+             }
+         
+     });
+    
+    
+});
  
  var counter = 0;
 app.get('/counter' , function(req, res){
@@ -108,56 +129,20 @@ app.get('/submit-name', function(req,res) {//URL: /submit-name?name=xxxx
     
 });
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
-});
 
-var pool = new Pool(config);
-
-app.get('/test-db',function(req,res){
-    //make a select request
-    //return a response with the results
-      pool.query('SELECT * FROM test', function(err,result){
-          if(err){
-                   res.status(500).send(err.toString());
-                 }
-            else
-               {
-                   res.send(JSON.stringify(result));
-               }
-            
-         });
-    
-    
-});
 
 
  
 
 
-app.get('/articles/:articleName', function (req, res){
+app.get('/:articleName', function (req, res){
     //articleName=article-one
     //articles[articleName]=={}content object for article-one
    
    
    //SELECT * FROM articles WHERE title = 'article-one';
-    pool.query("SELECT * FROM article WHERE title =  + 'req.params.articleName  ' " , function(err , result){
-        
-        if(err){
-            res.status(500).send(err.toString());
-            
-        }
-           else if(result.rows.length===0){
-               
-               res.status(404).send('Article not found');
-           }
-             else {
-                 
-                 var articleData = result.rows[0];
-                 res.send(createTemplate(articles[articleData]));
-             }
-          });
-   
+   var articleName = req.params.articleName;
+   res.send(createTempalte(articles[articleName]));
      });
 
 
