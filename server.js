@@ -85,6 +85,29 @@ var articles={
     `;
     return htmlTemplate;
  }
+ 
+ 
+ 
+ var counter = 0;
+app.get('/counter' , function(req, res){
+    counter = counter + 1;
+    res.send(counter.toString());
+    
+});
+
+
+var names = [];
+app.get('/submit-name', function(req,res) {//URL: /submit-name?name=xxxx
+
+    //Get the name from request object
+    var name = req.query.name;
+    
+    names.push(name);
+    //JSON: Javascript Object Notation
+    res.send(JSON.stringify(names));
+    
+});
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
@@ -107,24 +130,9 @@ app.get('/test-db',function(req,res){
     
     
 });
-var counter = 0;
-app.get('/counter' , function(req, res){
-    counter = counter + 1;
-    res.send(counter.toString());
-    
-});
 
- var names = [];
-app.get('/submit-name', function(req,res) {//URL: /submit-name?name=xxxx
 
-    //Get the name from request object
-    var name = req.query.name;
-    
-    names.push(name);
-    //JSON: Javascript Object Notation
-    res.send(JSON.stringify(names));
-    
-});
+ 
 
 
 app.get('/articles/:articleName', function (req, res){
